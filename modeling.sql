@@ -1,19 +1,5 @@
-CREAT VIEW best_sell AS 
-
--- Qty most
-
-SELECT o.type AS type
-	, sum(o.qty) AS total_qty
-	, c.state AS state
-FROM order o
-LEFT JOIN customer c USING (customer_id)
-GROUP BY o.type, c.state
-ORDER BY total_qty DESC
-
-
-
-2. Prices most
-
+CREAT VIEW best_sell AS
+-- Prices most
 SELECT o.type AS type
 	, sum(o.retail_price) AS total_income
 	, c.state AS state
@@ -21,6 +7,18 @@ FROM order o
 LEFT JOIN customer c USING (customer_id)
 GROUP BY o.type, c.state
 ORDER BY total_income DESC
+
+-- Qty most
+
+-- SELECT o.type AS type
+-- 	, sum(o.qty) AS total_qty
+-- 	, c.state AS state
+-- FROM order o
+-- LEFT JOIN customer c USING (customer_id)
+-- GROUP BY o.type, c.state
+-- ORDER BY total_qty DESC
+
+
 
 
 
