@@ -8,8 +8,7 @@ LEFT JOIN customer c USING (customer_id)
 GROUP BY o.type, c.state
 ORDER BY total_income DESC
 
--- Qty most
-
+-- -- Qty most
 -- SELECT o.type AS type
 -- 	, sum(o.qty) AS total_qty
 -- 	, c.state AS state
@@ -21,7 +20,7 @@ ORDER BY total_income DESC
 
 
 
-
+-- Total number of pizzas sold over the last 12 months for each type
 SELECT sum(o.qty) AS total_qty
 JOIN (
 	SELECT type
@@ -33,6 +32,7 @@ FROM order o
 WHERE o.order_date > now() - INTERVAL 12 month
 GROUP BY type
 
+-- Gross sales over the last 12 months for each type
 SELECT sum(o.retail_price) AS total_retail
 JOIN (
 	SELECT type
@@ -44,7 +44,7 @@ FROM order o
 WHERE o.order_date > now() - INTERVAL 12 month
 GROUP BY type
 
-
+-- Gross sales per capita over the last 12 months for each type
 SELECT sum(o.retail_price) / count(DISTINCT customer_id) AS per_retail
 JOIN (
 	SELECT type
@@ -56,7 +56,7 @@ FROM order o
 WHERE o.order_date > now() - INTERVAL 12 month
 GROUP BY type
 
-
+-- Number of unique customers who ordered the item at least once over the last 12 months for each type
 SELECT count(DISTINCT customer_id) AS total_cus
 JOIN (
 	SELECT type
