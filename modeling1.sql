@@ -1,4 +1,4 @@
-CREATE MATERIRALED VIEW orders_by_pizza_types AS
+CREATE MATERIALIZED VIEW orders_by_pizza_types AS
 
 SELECT state, type, total_number_of_pizzas_sold, gross_sales_USD, (gross_sales_USD / population) AS gross_sales_USD_per_capita, number_of_unique_customers
 FROM (
