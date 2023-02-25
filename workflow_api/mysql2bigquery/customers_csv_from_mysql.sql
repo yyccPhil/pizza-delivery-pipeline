@@ -1,0 +1,7 @@
+SELECT *
+FROM customers
+INTO OUTFILE 'customers.csv' 
+FIELDS ENCLOSED BY '"' 
+TERMINATED BY ',' 
+ESCAPED BY '"' 
+LINES TERMINATED BY '\r\n';
