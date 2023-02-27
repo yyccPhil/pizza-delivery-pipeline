@@ -14,11 +14,11 @@ def callback(message):
     print(f'Received message: {message}\n')
     # print(f'data: {message.data}')
 
-    # if message.attributes:
-    #     print("Attributes:")
-    #     for key in message.attributes:
-    #         value = message.attributes.get(key)
-    #         print(f"{key}: {value}")
+    if message.attributes:
+        # print("Attributes:")
+        for key in message.attributes:
+            value = message.attributes.get(key)
+            # print(f"{key}: {value}")
 
     message.ack()           
 
