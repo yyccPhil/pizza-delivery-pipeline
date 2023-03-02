@@ -5,7 +5,7 @@ from concurrent.futures import TimeoutError
 credentials_path = "pizza_delivery_privatekey.json"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
 
-timeout = 5.0
+timeout = 10.0
 
 subscriber = pubsub_v1.SubscriberClient()
 subscription_path = "projects/artful-turbine-378406/subscriptions/pizza-delivery-sub"
@@ -15,10 +15,10 @@ def callback(message):
     # print(f'data: {message.data}')
 
     if message.attributes:
-        # print("Attributes:")
+    #     print("Attributes:")
         for key in message.attributes:
             value = message.attributes.get(key)
-            # print(f"{key}: {value}")
+    #         print(f"{key}: {value}")
 
     message.ack()           
 

@@ -1,5 +1,8 @@
 import os
+import json
+from orders_json_generator import order_json_generate
 from google.cloud import pubsub_v1
+
 
 credentials_path = "pizza_delivery_privatekey.json"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
@@ -8,22 +11,13 @@ publisher = pubsub_v1.PublisherClient()
 topic_path = "projects/artful-turbine-378406/topics/pizza-delivery"
 
 count = 0
-orders_csv = open('orders.csv')
-orders = orders_csv.readlines()
-for order in orders:
+for i in range(10):
 	
-	order_id, customer_id, pizza_type, qty, retail_price, order_date = order.strip().split(',')
+	order_id = i + 1
 
-	data = "My order message is ready!"
+	data = f"Message for order {order_id} is ready!"
 	data = data.encode("utf-8")
-	attributes = {
-		"order_id": order_id,
-		"customer_id": customer_id,
-		"type": pizza_type,
-		"qty": qty,
-		"retail_price": retail_price,
-		"order_date": order_date
-	}
+	attributes = json.loads(order_json_generate(order_id))
 
 
 	future = publisher.publish(topic_path, data, **attributes)
@@ -32,4 +26,3 @@ for order in orders:
 	count += 1
 
 print(f"Successfully publish {count} messages!")
-orders_csv.close()
